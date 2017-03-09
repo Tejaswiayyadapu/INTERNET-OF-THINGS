@@ -1,0 +1,45 @@
+#define trigPin 12
+ #define echoPin 11
+ #define led 9
+ #define led2 10
+void setup ()
+{
+  Serial.begin(9600);
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  pinMode(led, OUTPUT);
+  pinMode(led2, OUTPUT);
+  Serial.print("Ultrasonic Sensor Starting!!!");
+  Serial.println("");
+  delay(1000);
+}
+void loop ()
+{
+  int duration, distance;
+  digitalWrite(trigPin, HIGH);
+  delay(1000);
+  digitalWrite(trigPin, LOW);
+  duration = pulseIn(echoPin, HIGH);
+  distance =(duration/2)  * 0.0343;
+  if (distance < 8)
+  {
+    digitalWrite(led, HIGH);
+    digitalWrite(led2, LOW);
+  }
+  else
+  {
+    digitalWrite(led, LOW);
+    digitalWrite(led2, HIGH);
+  }
+  if (distance >= 150)
+  {
+    Serial.print("Out of Range");
+    Serial.println("");   
+  }
+  else
+  {
+  Serial.print(distance);
+  Serial.println(" cm");
+  delay(1000);
+  }
+}
